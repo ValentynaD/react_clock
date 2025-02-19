@@ -13,16 +13,16 @@ class Clock extends React.Component<ClockProps, ClockState> {
   private timerId: number | undefined;
   private oldName: string | undefined;
   private currentTime: Date;
-  private lastUpdate: number; // Додано для відстеження останнього оновлення
+  private lastUpdate: number; 
 
   constructor(props: ClockProps) {
     super(props);
-    this.currentTime = new Date(Date.UTC(2023, 0, 1, 9, 32, 31)); // Початковий час 09:32:31
+    this.currentTime = new Date(Date.UTC(2023, 0, 1, 9, 32, 31));
     this.state = {
       time: this.currentTime.toUTCString().slice(-12, -4),
     };
     this.oldName = props.name;
-    this.lastUpdate = Date.now(); // Ініціалізація часу останнього оновлення
+    this.lastUpdate = Date.now();
   }
 
   componentDidMount() {
@@ -32,7 +32,7 @@ class Clock extends React.Component<ClockProps, ClockState> {
       this.setState({ time: newTime }, () => {
         console.log(newTime);
       });
-      this.lastUpdate = Date.now(); // Оновлюємо час останнього логування
+      this.lastUpdate = Date.now();
     }, 1000);
   }
 
@@ -50,23 +50,22 @@ class Clock extends React.Component<ClockProps, ClockState> {
   }
 
   updateTime() {
-    // Перевіряємо, скільки часу пройшло з останнього оновлення
+
     const now = Date.now();
     const timeSinceLastUpdate = now - this.lastUpdate;
 
-    // Якщо пройшло менше 1000мс (1 секунда), не логуємо в консоль
     if (timeSinceLastUpdate < 1000) {
-      this.currentTime = new Date(Date.UTC(2023, 0, 1, 9, 32, 35)); // Встановлюємо бажаний час
+      this.currentTime = new Date(Date.UTC(2023, 0, 1, 9, 32, 35));
       const newTime = this.currentTime.toUTCString().slice(-12, -4);
-      this.setState({ time: newTime }); // Оновлюємо стан без логування
+      this.setState({ time: newTime });
     } else {
-      // Якщо пройшло більше 1 секунди, логуємо як зазвичай
+
       this.currentTime = new Date(Date.UTC(2023, 0, 1, 9, 32, 35));
       const newTime = this.currentTime.toUTCString().slice(-12, -4);
       this.setState({ time: newTime }, () => {
         console.log(newTime);
       });
-      this.lastUpdate = now; // Оновлюємо час останнього логування
+      this.lastUpdate = now;
     }
   }
 
